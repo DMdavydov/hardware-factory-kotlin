@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version "1.3.72"
     id("org.jetbrains.kotlin.plugin.noarg") version "1.3.72"
     id("org.jetbrains.kotlin.plugin.jpa") version "1.3.72"
+    id("org.asciidoctor.jvm.convert") version "3.1.0"
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"
 }
@@ -24,7 +25,6 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -33,10 +33,12 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
@@ -50,5 +52,15 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "11"
+    }
+}
+
+tasks {
+    asciidoctor {
+        setSourceDir(file("src/main/asciidoc"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("toplevel.adoc", "another.adoc", "third.adoc")
+//        })
+        setOutputDir(file("build/docs"))
     }
 }

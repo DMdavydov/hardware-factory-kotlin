@@ -1,6 +1,7 @@
 package com.ddavydov.hardwarefactory.service;
 
 import com.ddavydov.hardwarefactory.controller.dto.HardwareDto
+import com.ddavydov.hardwarefactory.converter.hardwareToDto
 import com.ddavydov.hardwarefactory.model.Hardware
 import com.ddavydov.hardwarefactory.repositories.HardwareRepository
 import org.springframework.data.domain.Page
@@ -15,13 +16,14 @@ import java.util.*
 @Service
 class HardwareService(val hardwareRepository: HardwareRepository) {
 
-    fun getHardware(page: Int): Page<Hardware> {
+    fun getHardware(page: Int): Page<HardwareDto> {
         val pageable: Pageable = PageRequest.of(page, 5, Sort.by("name"))
         return hardwareRepository.findAll(pageable)
+                .map { hardwareToDto(it) }
     }
 
-    fun getHardwareById(id: UUID): Hardware {
-        return hardwareRepository.findById(id)
+    fun getHardwareById(id: UUID): HardwareDto {
+        return hardwareRepository.findById(id).map { hardwareToDto(it) }
                 .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "Hardware Not Found") }
     }
 

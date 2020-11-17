@@ -22,12 +22,12 @@ import javax.validation.Valid
 class HardwareController(val hardwareService: HardwareService) {
 
     @GetMapping
-    fun getHardware(@RequestParam(defaultValue = "0") page: Int): Page<Hardware> {
+    fun getHardware(@RequestParam(defaultValue = "0") page: Int): Page<HardwareDto> {
         return hardwareService.getHardware(page);
     }
 
     @GetMapping("/{hardwareId}")
-    fun getHardwareById(@PathVariable hardwareId: UUID): Hardware {
+    fun getHardwareById(@PathVariable hardwareId: UUID): HardwareDto {
         return hardwareService.getHardwareById(hardwareId);
     }
 
