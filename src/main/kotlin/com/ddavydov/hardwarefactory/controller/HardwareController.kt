@@ -1,5 +1,6 @@
 package com.ddavydov.hardwarefactory.controller;
 
+import com.ddavydov.hardwarefactory.controller.dto.HardwareDto
 import com.ddavydov.hardwarefactory.model.Hardware
 import com.ddavydov.hardwarefactory.service.HardwareService
 import lombok.RequiredArgsConstructor
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
+import javax.validation.Valid
 
 @RestController
 @RequiredArgsConstructor
@@ -30,7 +32,7 @@ class HardwareController(val hardwareService: HardwareService) {
     }
 
     @PostMapping
-    fun saveHardware(@RequestBody hardware: Hardware): Hardware {
+    fun saveHardware(@Valid @RequestBody hardware: HardwareDto): Hardware {
         return hardwareService.saveHardware(hardware);
     }
 

@@ -1,5 +1,6 @@
 package com.ddavydov.hardwarefactory.service;
 
+import com.ddavydov.hardwarefactory.controller.dto.HardwareDto
 import com.ddavydov.hardwarefactory.model.Hardware
 import com.ddavydov.hardwarefactory.repositories.HardwareRepository
 import org.springframework.data.domain.Page
@@ -24,7 +25,14 @@ class HardwareService(val hardwareRepository: HardwareRepository) {
                 .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "Hardware Not Found") }
     }
 
-    fun saveHardware(hardware: Hardware): Hardware {
+    fun saveHardware(hardwareDto: HardwareDto): Hardware {
+        val hardware = Hardware(
+                name = hardwareDto.name,
+                manufacturer = hardwareDto.manufacturer,
+                type = hardwareDto.type.name,
+                description = hardwareDto.description,
+                price = hardwareDto.price
+        )
         hardwareRepository.save(hardware)
         return hardware
     }
