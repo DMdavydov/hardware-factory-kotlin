@@ -3,7 +3,6 @@ package com.ddavydov.hardwarefactory.controller;
 import com.ddavydov.hardwarefactory.controller.dto.HardwareDto
 import com.ddavydov.hardwarefactory.model.Hardware
 import com.ddavydov.hardwarefactory.service.HardwareService
-import lombok.RequiredArgsConstructor
 import org.springframework.data.domain.Page
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,7 +16,6 @@ import java.util.*
 import javax.validation.Valid
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/hardware")
 class HardwareController(val hardwareService: HardwareService) {
 
