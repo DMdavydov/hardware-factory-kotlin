@@ -23,8 +23,11 @@ fun getHardwareDoc(): ResponseFieldsSnippet {
             fieldWithPath("content[].description")
                     .description("description"),
             fieldWithPath("content[].price")
-                    .description("price")
-                    .type(JsonFieldType.NUMBER)
+                    .description("price"),
+            fieldWithPath("content[].createdDate")
+                    .description("createdDate"),
+            fieldWithPath("content[].lastModifiedDate")
+                    .description("lastModifiedDate")
     )
 }
 
@@ -42,8 +45,11 @@ fun postHardwareRequestDoc(): RequestFieldsSnippet {
             fieldWithPath("description")
                     .description("description"),
             fieldWithPath("price")
-                    .description("price")
-                    .type(JsonFieldType.NUMBER)
+                    .description("price"),
+            fieldWithPath("createdDate")
+                    .description("createdDate"),
+            fieldWithPath("lastModifiedDate")
+                    .description("lastModifiedDate")
     )
 }
 
@@ -60,7 +66,10 @@ fun postHardwareResponseDoc(): ResponseFieldsSnippet {
             fieldWithPath("description")
                     .description("description"),
             fieldWithPath("price")
-                    .description("price")
-                    .type(JsonFieldType.NUMBER)
+                    .description("price"),
+            fieldWithPath("createdDate")
+                    .description("createdDate"),
+            fieldWithPath("lastModifiedDate")
+                    .description("lastModifiedDate")
     )
 }

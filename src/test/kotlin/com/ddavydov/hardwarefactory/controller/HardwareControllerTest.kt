@@ -11,6 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doNothing
 import com.nhaarman.mockitokotlin2.whenever
+import java.sql.Timestamp
+import java.time.Instant
+import java.time.OffsetDateTime
 import java.util.Optional
 import java.util.UUID
 import org.hamcrest.Matchers.equalTo
@@ -81,7 +84,9 @@ class HardwareControllerTest {
             type = HardwareType.CPU.name,
             name = "test",
             manufacturer = "INTEL",
-            price = 1000L
+            price = 1000L,
+            createdDate = Timestamp.from(Instant.now()),
+            lastModifiedDate = Timestamp.from(Instant.now())
     )
 
     var pagedResponse: Page<Hardware> = PageImpl<Hardware>(mutableListOf(hardwaree))
