@@ -13,7 +13,6 @@ import com.nhaarman.mockitokotlin2.doNothing
 import com.nhaarman.mockitokotlin2.whenever
 import java.sql.Timestamp
 import java.time.Instant
-import java.time.OffsetDateTime
 import java.util.Optional
 import java.util.UUID
 import org.hamcrest.Matchers.equalTo
