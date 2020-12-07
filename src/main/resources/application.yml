@@ -5,9 +5,13 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb
-    initialization-mode: embedded
-  data:
-    jpa:
-      repositories:
-        bootstrap-mode: default
+    url: jdbc:postgresql://localhost:5432/hardware
+    username: test
+    password: test
+    initialization-mode: always
+    platform: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
