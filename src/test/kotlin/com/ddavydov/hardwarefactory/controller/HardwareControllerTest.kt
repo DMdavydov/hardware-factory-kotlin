@@ -60,32 +60,34 @@ class HardwareControllerTest {
     lateinit var hardwareRepository: HardwareRepository
 
     @BeforeEach
-    fun setUp(webApplicationContext: WebApplicationContext?,
-              restDocumentation: RestDocumentationContextProvider?) {
+    fun setUp(
+        webApplicationContext: WebApplicationContext?,
+        restDocumentation: RestDocumentationContextProvider?
+    ) {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext!!)
-                .apply<DefaultMockMvcBuilder>(documentationConfiguration(restDocumentation))
-                .build()
+            .apply<DefaultMockMvcBuilder>(documentationConfiguration(restDocumentation))
+            .build()
     }
 
     val pageable: Pageable = PageRequest.of(0, 5, Sort.by("name"))
 
     val hardware = HardwareDto(
-            description = "test",
-            type = HardwareType.CPU,
-            name = "test",
-            manufacturer = "INTEL",
-            price = 1000L
+        description = "test",
+        type = HardwareType.CPU,
+        name = "test",
+        manufacturer = "INTEL",
+        price = 1000L
     )
 
     val hardwaree = Hardware(
-            id = UUID.randomUUID(),
-            description = "test",
-            type = HardwareType.CPU.name,
-            name = "test",
-            manufacturer = "INTEL",
-            price = 1000L,
-            createdDate = Timestamp.from(Instant.now()),
-            lastModifiedDate = Timestamp.from(Instant.now())
+        id = UUID.randomUUID(),
+        description = "test",
+        type = HardwareType.CPU,
+        name = "test",
+        manufacturer = "INTEL",
+        price = 1000L,
+        createdDate = Timestamp.from(Instant.now()),
+        lastModifiedDate = Timestamp.from(Instant.now())
     )
 
     var pagedResponse: Page<Hardware> = PageImpl<Hardware>(mutableListOf(hardwaree))
@@ -96,13 +98,16 @@ class HardwareControllerTest {
         val response = mockMvc.perform(get("/api/v1/hardware"))
 
         response
-                .andExpect(status().is2xxSuccessful)
-                .andDo(MockMvcResultHandlers.print())
-                .andDo(document("get-hardware",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint()),
-                        getHardwareDoc()
-                ))
+            .andExpect(status().is2xxSuccessful)
+            .andDo(MockMvcResultHandlers.print())
+            .andDo(
+                document(
+                    "get-hardware",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    getHardwareDoc()
+                )
+            )
     }
 
     @Test
@@ -111,33 +116,40 @@ class HardwareControllerTest {
         val response = mockMvc.perform(get("/api/v1/hardware/{id}", UUID.randomUUID()))
 
         response
-                .andExpect(status().is2xxSuccessful)
-                .andDo(MockMvcResultHandlers.print())
-                .andDo(document("get-hardware-by-id",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint()),
-                        postHardwareResponseDoc()
-                ))
+            .andExpect(status().is2xxSuccessful)
+            .andDo(MockMvcResultHandlers.print())
+            .andDo(
+                document(
+                    "get-hardware-by-id",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    postHardwareResponseDoc()
+                )
+            )
     }
 
     @Test
     fun saveHardware() {
-        val response = mockMvc.perform(post("/api/v1/hardware")
+        val response = mockMvc.perform(
+            post("/api/v1/hardware")
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(mapper.writeValueAsString(hardware))
         )
 
         response
-                .andExpect(status().is2xxSuccessful)
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(jsonPath("$.name", equalTo("test")))
-                .andDo(document("post-hardware",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint()),
-                        postHardwareRequestDoc(),
-                        postHardwareResponseDoc()
-                ))
+            .andExpect(status().is2xxSuccessful)
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(jsonPath("$.name", equalTo("test")))
+            .andDo(
+                document(
+                    "post-hardware",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    postHardwareRequestDoc(),
+                    postHardwareResponseDoc()
+                )
+            )
     }
 
     @Test
@@ -146,11 +158,14 @@ class HardwareControllerTest {
         val response = mockMvc.perform(delete("/api/v1/hardware/{id}", UUID.randomUUID()))
 
         response
-                .andExpect(status().is2xxSuccessful)
-                .andDo(MockMvcResultHandlers.print())
-                .andDo(document("delete-hardware",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint())
-                ))
+            .andExpect(status().is2xxSuccessful)
+            .andDo(MockMvcResultHandlers.print())
+            .andDo(
+                document(
+                    "delete-hardware",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint())
+                )
+            )
     }
 }

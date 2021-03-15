@@ -1,9 +1,7 @@
-package com.ddavydov.hardwarefactory.repositories;
+package com.ddavydov.hardwarefactory.repositories
 
 import com.ddavydov.hardwarefactory.model.Hardware
-import org.springframework.data.repository.PagingAndSortingRepository
-import java.util.*
+import java.util.UUID
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface HardwareRepository : PagingAndSortingRepository<Hardware, UUID> {
-
-}
+interface HardwareRepository : JpaRepository<Hardware, UUID>

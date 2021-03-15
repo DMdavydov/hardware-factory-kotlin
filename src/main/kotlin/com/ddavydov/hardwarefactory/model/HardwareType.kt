@@ -1,4 +1,4 @@
-package com.ddavydov.hardwarefactory.model;
+package com.ddavydov.hardwarefactory.model
 
 enum class HardwareType {
     CPU,
